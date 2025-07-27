@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Nhà Giao Dịch Dẫn Đầu Cuộc Thi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #ffffff;
+            /* min-height: 100vh; */
+            /* padding: 20px; */
+        }
+
+        .container {
+            /* max-width: 1200px; */
+            width: 100%;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1) 0%, transparent 50%, rgba(255, 215, 0, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .decorative-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .decorative-line::before,
+        .decorative-line::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #bcfe08, transparent);
+            margin: 0 20px;
+        }
+
+        .crown-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #bcfe08, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #bcfe08;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 0px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            /* color: #bcfe08; */
+            color: white;
+            font-weight: bold;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        /* thead {
+            background: linear-gradient(135deg, #333333, #444444);
+        } */
+
+        th {
+            padding: 15px 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 1rem;
+            border-bottom: 2px solid #bcfe08;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tbody tr:nth-child(odd) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: scale(1.02);
+        }
+
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .rank {
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .rank-1 { color: #ffd700; text-shadow: 0 0 10px #ffd700; }
+        .rank-2 { color: #c0c0c0; text-shadow: 0 0 10px #c0c0c0; }
+        .rank-3 { color: #cd7f32; text-shadow: 0 0 10px #cd7f32; }
+
+        .user-id {
+            color: #bcfe08;
+            font-weight: 300;
+        }
+        .user-id-outtop {
+            color: white;
+            font-weight: 300;
+        }
+
+        .nickname {
+            color: #bcfe08;
+            /* font-style: italic; */
+        }
+
+        .revenue {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .pnl-positive {
+            color: #bcfe08;
+            /* font-weight: 300; */
+        }
+
+        .pnl-negative {
+            /* color: #ff6b6b; */
+            color: white;
+            /* font-weight: 300; */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            th, td {
+                padding: 8px 5px;
+                font-size: 0.85rem;
+            }
+
+            .decorative-line::before,
+            .decorative-line::after {
+                margin: 0 10px;
+            }
+
+            /* Stack table on mobile */
+            .table-container {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 6px 3px;
+                font-size: 0.75rem;
+            }
+
+            .crown-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+        }
+
+        /* Tablet specific */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                padding: 25px;
+            }
+
+            .title {
+                font-size: 2.2rem;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animation for loading effect */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        tbody tr:nth-child(1) { animation-delay: 0.1s; }
+        tbody tr:nth-child(2) { animation-delay: 0.2s; }
+        tbody tr:nth-child(3) { animation-delay: 0.3s; }
+        tbody tr:nth-child(4) { animation-delay: 0.4s; }
+        tbody tr:nth-child(5) { animation-delay: 0.5s; }
+        tbody tr:nth-child(6) { animation-delay: 0.6s; }
+        tbody tr:nth-child(7) { animation-delay: 0.7s; }
+        tbody tr:nth-child(8) { animation-delay: 0.8s; }
+        tbody tr:nth-child(9) { animation-delay: 0.9s; }
+        tbody tr:nth-child(10) { animation-delay: 1.0s; }
+        tbody tr:nth-child(11) { animation-delay: 1.1s; }
+        tbody tr:nth-child(12) { animation-delay: 1.2s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- <div class="decorative-line">
+                <div class="crown-icon">👑</div>
+            </div> -->
+            <h1 class="title">TOP NHÀ GIAO DỊCH DẪN ĐẦU CUỘC THI</h1>
+            <p class="subtitle">BXH những anh tài có lợi nhuận cao nhất được cập nhật hàng <span class="highlight">tuần</span>.</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>HẠNG</th>
+                        <th>NICKNAME</th>
+                        <th>USER ID</th>
+                        <th>DOANH THU</th>
+                        <th>PnL%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank rank-1">1</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id">275557</td>
+                        <td class="pnl-positive">15.000</td>
+                        <td class="pnl-positive bold">54.43%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank rank-2">2</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id">275557</td>
+                        <td class="pnl-positive">15.000</td>
+                        <td class="pnl-positive bold">44.32%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank rank-3">3</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id">275557</td>
+                        <td class="pnl-positive">15.000</td>
+                        <td class="pnl-positive bold">41.22%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">4</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">39.56%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">5</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">37.69%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">6</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">39.56%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">7</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">39.56%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">8</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">37.69%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">9</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">37.22%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">10</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">24.32%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">11</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">14.43%</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">12</td>
+                        <td class="nickname">user name 09123124</td>
+                        <td class="user-id-outtop">275557</td>
+                        <td class="pnl-negative">15.000</td>
+                        <td class="pnl-negative bold">14.32%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
