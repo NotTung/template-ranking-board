@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top Nhà Giao Dịch Dẫn Đầu Cuộc Thi</title>
+    <title>Preview Demo - Ranking board</title>
     <style>
         * {
             margin: 0;
@@ -16,7 +16,7 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
             color: #ffffff;
             /* min-height: 100vh; */
-            /* padding: 20px; */
+            padding: 5% 0;
         }
 
         .container {
@@ -52,29 +52,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            /* margin-bottom: 20px; */
         }
 
-        .decorative-line::before,
+        /* .decorative-line::before,
         .decorative-line::after {
             content: '';
             flex: 1;
             height: 2px;
             background: linear-gradient(90deg, transparent, #bcfe08, transparent);
             margin: 0 20px;
-        }
+        } */
 
         .crown-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #bcfe08, #ffed4e);
-            border-radius: 50%;
+            /* width: 40px; */
+            /* height: 40px; */
+            /* background: linear-gradient(45deg, #bcfe08, #ffed4e); */
+            /* border-radius: 50%; */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
             margin: 0 auto 20px;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            /* box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3); */
+        }
+        .crown-icon img {
+            height: 150px;
+            width: 150px;
         }
 
         .title {
@@ -100,8 +104,21 @@
 
         .table-container {
             overflow-x: auto;
+            overflow-y: auto;
+            max-height: 400px;
             border-radius: 10px;
             background: rgba(0, 0, 0, 0.3);
+            padding: 0 15%;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* Tốt cho iOS */
+
+            /* Ẩn thanh scroll */
+             scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        }
+
+        .table-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
         }
 
         table {
@@ -121,12 +138,21 @@
         th {
             padding: 15px 10px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 600;
             color: #ffffff;
             font-size: 1rem;
             border-bottom: 2px solid #bcfe08;
             text-transform: uppercase;
             letter-spacing: 0px;
+        }
+
+        th:nth-child(1) ,
+        tbody td:nth-child(1) {
+            width: 10px;
+        }
+        th:nth-child(5) {
+            width: 20px;
+            text-transform: unset;
         }
 
         tbody tr {
@@ -174,7 +200,9 @@
 
         .nickname {
             color: #bcfe08;
-            /* font-style: italic; */
+        }
+        .nickname-outtop {
+            color: white;
         }
 
         .revenue {
@@ -195,9 +223,12 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .table-container {
+                padding: unset;
+            }
             .container {
                 padding: 20px;
-                margin: 10px;
+                /* margin: 10px; */
             }
 
             .title {
@@ -214,20 +245,26 @@
                 font-size: 0.85rem;
             }
 
-            .decorative-line::before,
+            /* .decorative-line::before,
             .decorative-line::after {
                 margin: 0 10px;
-            }
+            } */
 
             /* Stack table on mobile */
             .table-container {
                 font-size: 0.8rem;
             }
+            th:nth-child(2), tbody td:nth-child(2) {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
+            .table-container {
+                padding: unset;
+            }
             body {
-                padding: 10px;
+                /* padding: 10px; */
             }
 
             .title {
@@ -247,6 +284,9 @@
                 width: 30px;
                 height: 30px;
                 font-size: 16px;
+            }
+            th:nth-child(2), tbody td:nth-child(2) {
+                display: none;
             }
         }
 
@@ -299,11 +339,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- <div class="decorative-line">
-                <div class="crown-icon">👑</div>
-            </div> -->
+            <div class="decorative-line">
+                <div class="crown-icon">
+                    <img src="https://learningchain.vn/wp-content/uploads/nivex/Group%204.png" alt="">
+                </div>
+            </div>
             <h1 class="title">TOP NHÀ GIAO DỊCH DẪN ĐẦU CUỘC THI</h1>
-            <p class="subtitle">BXH những anh tài có lợi nhuận cao nhất được cập nhật hàng <span class="highlight">tuần</span>.</p>
+            <p class="subtitle">BXH những anh tài có lợi nhuận cao nhất được cập nhật hàng <span class="highlight">ngày</span>.</p>
         </div>
 
         <div class="table-container">
@@ -341,63 +383,63 @@
                     </tr>
                     <tr>
                         <td class="rank">4</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">39.56%</td>
                     </tr>
                     <tr>
                         <td class="rank">5</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">37.69%</td>
                     </tr>
                     <tr>
                         <td class="rank">6</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">39.56%</td>
                     </tr>
                     <tr>
                         <td class="rank">7</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">39.56%</td>
                     </tr>
                     <tr>
                         <td class="rank">8</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">37.69%</td>
                     </tr>
                     <tr>
                         <td class="rank">9</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">37.22%</td>
                     </tr>
                     <tr>
                         <td class="rank">10</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">24.32%</td>
                     </tr>
                     <tr>
                         <td class="rank">11</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">14.43%</td>
                     </tr>
                     <tr>
                         <td class="rank">12</td>
-                        <td class="nickname">user name 09123124</td>
+                        <td class="nickname-outtop">user name 09123124</td>
                         <td class="user-id-outtop">275557</td>
                         <td class="pnl-negative">15.000</td>
                         <td class="pnl-negative bold">14.32%</td>
@@ -406,5 +448,12 @@
             </table>
         </div>
     </div>
+    <script>
+        // auto scroll to top page
+        document.querySelector('.table-container').scrollTo({
+            top: 1,
+            behavior: 'smooth'
+        });
+    </script>
 </body>
 </html>
