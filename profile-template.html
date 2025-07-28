@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin tài khoản</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .header-content h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-content p {
+            color: #6b7280;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-outline {
+            background-color: white;
+            color: #374151;
+            border-color: #d1d5db;
+        }
+
+        .btn-outline:hover {
+            background-color: #f9fafb;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: 1fr 2fr;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-header {
+            padding: 1.5rem 1.5rem 0;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .profile-section {
+            text-align: center;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e5e7eb;
+        }
+
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+
+        .editing .avatar-edit-btn {
+            display: block;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-username {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #f3f4f6;
+            color: #374151;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .separator {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 1.5rem 0;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .info-icon {
+            color: #6b7280;
+            width: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-grid-3 {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid-2,
+            .form-grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .display-text {
+            padding: 0.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        .social-input {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-icon {
+            color: #6b7280;
+            width: 16px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .settings-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .settings-text h4 {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .settings-text p {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background-color: #d1d5db;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .toggle.active {
+            background-color: #3b82f6;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .toggle.active .toggle-slider {
+            transform: translateX(20px);
+        }
+
+        .select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-actions {
+                align-self: stretch;
+            }
+
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Thông tin tài khoản</h1>
+                <p>Quản lý thông tin cá nhân và cài đặt tài khoản</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="editBtn">
+                    <i class="fas fa-edit"></i>
+                    Chỉnh sửa
+                </button>
+                <button class="btn btn-primary hidden" id="saveBtn">
+                    <i class="fas fa-save"></i>
+                    Lưu
+                </button>
+                <button class="btn btn-outline hidden" id="cancelBtn">
+                    <i class="fas fa-times"></i>
+                    Hủy
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3">
+            <!-- Profile Card -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="profile-section">
+                        <div class="avatar-container">
+                            <img src="/placeholder.svg?height=96&width=96" alt="Avatar" class="avatar">
+                            <button class="avatar-edit-btn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2 class="profile-name" id="displayName">Nguyễn Văn An</h2>
+                        <p class="profile-username" id="displayUsername">@nguyenvanan</p>
+                        <span class="badge">Tài khoản đã xác thực</span>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <i class="fas fa-envelope info-icon"></i>
+                            <span id="displayEmail">nguyenvanan@example.com</span>
+                        </li>
+                        <li class="info-item">
+                            <i class="fas fa-phone info-icon"></i>
+                            <span id="displayPhone">+84 123 456 789</span>
+                        </li>
+                        <li class="info-item">
+                            <i class="fas fa-map-marker-alt info-icon"></i>
+                            <span id="displayLocation">Hà Nội, Việt Nam</span>
+                        </li>
+                        <li class="info-item">
+                            <i class="fas fa-calendar info-icon"></i>
+                            <span>Tham gia từ tháng 3, 2023</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="space-y-6">
+                <!-- Personal Information -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông tin cá nhân</h3>
+                        <p class="card-description">Cập nhật thông tin cá nhân của bạn</p>
+                    </div>
+                    <div class="card-content space-y-4">
+                        <div class="form-grid form-grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Họ và tên</label>
+                                <div class="display-mode">
+                                    <div class="display-text">Nguyễn Văn An</div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <input type="text" class="form-input" id="nameInput" value="Nguyễn Văn An">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tên người dùng</label>
+                                <div class="display-mode">
+                                    <div class="display-text">@nguyenvanan</div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <input type="text" class="form-input" id="usernameInput" value="nguyenvanan">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid form-grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <div class="display-mode">
+                                    <div class="display-text">nguyenvanan@example.com</div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <input type="email" class="form-input" id="emailInput" value="nguyenvanan@example.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Số điện thoại</label>
+                                <div class="display-mode">
+                                    <div class="display-text">+84 123 456 789</div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <input type="tel" class="form-input" id="phoneInput" value="+84 123 456 789">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Địa chỉ</label>
+                            <div class="display-mode">
+                                <div class="display-text">Hà Nội, Việt Nam</div>
+                            </div>
+                            <div class="edit-mode hidden">
+                                <input type="text" class="form-input" id="locationInput" value="Hà Nội, Việt Nam">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Giới thiệu</label>
+                            <div class="display-mode">
+                                <div class="display-text">Lập trình viên Full-stack với 5 năm kinh nghiệm. Đam mê công nghệ và học hỏi những điều mới mỗi ngày.</div>
+                            </div>
+                            <div class="edit-mode hidden">
+                                <textarea class="form-input form-textarea" id="bioInput">Lập trình viên Full-stack với 5 năm kinh nghiệm. Đam mê công nghệ và học hỏi những điều mới mỗi ngày.</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liên kết mạng xã hội</h3>
+                        <p class="card-description">Thêm các liên kết mạng xã hội của bạn</p>
+                    </div>
+                    <div class="card-content space-y-4">
+                        <div class="form-group">
+                            <label class="form-label">Website</label>
+                            <div class="display-mode">
+                                <div class="social-input">
+                                    <i class="fas fa-globe social-icon"></i>
+                                    <span>https://nguyenvanan.dev</span>
+                                </div>
+                            </div>
+                            <div class="edit-mode hidden">
+                                <div class="social-input">
+                                    <i class="fas fa-globe social-icon"></i>
+                                    <input type="url" class="form-input" id="websiteInput" value="https://nguyenvanan.dev" placeholder="https://yourwebsite.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid form-grid-3">
+                            <div class="form-group">
+                                <label class="form-label">GitHub</label>
+                                <div class="display-mode">
+                                    <div class="social-input">
+                                        <i class="fab fa-github social-icon"></i>
+                                        <span>nguyenvanan</span>
+                                    </div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <div class="social-input">
+                                        <i class="fab fa-github social-icon"></i>
+                                        <input type="text" class="form-input" id="githubInput" value="nguyenvanan" placeholder="username">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Twitter</label>
+                                <div class="display-mode">
+                                    <div class="social-input">
+                                        <i class="fab fa-twitter social-icon"></i>
+                                        <span>@nguyenvanan</span>
+                                    </div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <div class="social-input">
+                                        <i class="fab fa-twitter social-icon"></i>
+                                        <input type="text" class="form-input" id="twitterInput" value="@nguyenvanan" placeholder="@username">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">LinkedIn</label>
+                                <div class="display-mode">
+                                    <div class="social-input">
+                                        <i class="fab fa-linkedin social-icon"></i>
+                                        <span>nguyenvanan</span>
+                                    </div>
+                                </div>
+                                <div class="edit-mode hidden">
+                                    <div class="social-input">
+                                        <i class="fab fa-linkedin social-icon"></i>
+                                        <input type="text" class="form-input" id="linkedinInput" value="nguyenvanan" placeholder="username">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Cài đặt tài khoản</h3>
+                        <p class="card-description">Quản lý cài đặt bảo mật và thông báo</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <i class="fas fa-bell social-icon"></i>
+                                <div class="settings-text">
+                                    <h4>Thông báo email</h4>
+                                    <p>Nhận thông báo qua email</p>
+                                </div>
+                            </div>
+                            <div class="toggle active" data-toggle="email-notifications">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <i class="fas fa-eye social-icon"></i>
+                                <div class="settings-text">
+                                    <h4>Hiển thị công khai</h4>
+                                    <p>Cho phép người khác xem profile</p>
+                                </div>
+                            </div>
+                            <div class="toggle active" data-toggle="public-profile">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <i class="fas fa-shield-alt social-icon"></i>
+                                <div class="settings-text">
+                                    <h4>Xác thực 2 bước</h4>
+                                    <p>Tăng cường bảo mật tài khoản</p>
+                                </div>
+                            </div>
+                            <div class="toggle" data-toggle="two-factor">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+
+                        <div class="separator"></div>
+
+                        <div class="space-y-4">
+                            <div class="form-group">
+                                <label class="form-label">Ngôn ngữ</label>
+                                <select class="select" id="languageSelect">
+                                    <option value="vi" selected>Tiếng Việt</option>
+                                    <option value="en">English</option>
+                                    <option value="ja">日本語</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Múi giờ</label>
+                                <select class="select" id="timezoneSelect">
+                                    <option value="asia/ho_chi_minh" selected>Asia/Ho Chi Minh</option>
+                                    <option value="asia/tokyo">Asia/Tokyo</option>
+                                    <option value="america/new_york">America/New York</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Edit mode functionality
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const body = document.body;
+
+        let isEditing = false;
+        let originalData = {};
+
+        // Store original data
+        function storeOriginalData() {
+            originalData = {
+                name: document.getElementById('nameInput').value,
+                username: document.getElementById('usernameInput').value,
+                email: document.getElementById('emailInput').value,
+                phone: document.getElementById('phoneInput').value,
+                location: document.getElementById('locationInput').value,
+                bio: document.getElementById('bioInput').value,
+                website: document.getElementById('websiteInput').value,
+                github: document.getElementById('githubInput').value,
+                twitter: document.getElementById('twitterInput').value,
+                linkedin: document.getElementById('linkedinInput').value
+            };
+        }
+
+        // Toggle edit mode
+        function toggleEditMode(editing) {
+            isEditing = editing;
+            
+            if (editing) {
+                body.classList.add('editing');
+                editBtn.classList.add('hidden');
+                saveBtn.classList.remove('hidden');
+                cancelBtn.classList.remove('hidden');
+                
+                document.querySelectorAll('.display-mode').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('.edit-mode').forEach(el => el.classList.remove('hidden'));
+                
+                storeOriginalData();
+            } else {
+                body.classList.remove('editing');
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
+                cancelBtn.classList.add('hidden');
+                
+                document.querySelectorAll('.display-mode').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.edit-mode').forEach(el => el.classList.add('hidden'));
+            }
+        }
+
+        // Update display values
+        function updateDisplayValues() {
+            document.getElementById('displayName').textContent = document.getElementById('nameInput').value;
+            document.getElementById('displayUsername').textContent = '@' + document.getElementById('usernameInput').value;
+            document.getElementById('displayEmail').textContent = document.getElementById('emailInput').value;
+            document.getElementById('displayPhone').textContent = document.getElementById('phoneInput').value;
+            document.getElementById('displayLocation').textContent = document.getElementById('locationInput').value;
+            
+            // Update display text in form
+            const inputs = ['name', 'username', 'email', 'phone', 'location', 'bio', 'website', 'github', 'twitter', 'linkedin'];
+            inputs.forEach(field => {
+                const input = document.getElementById(field + 'Input');
+                const display = input.closest('.form-group').querySelector('.display-text, .social-input span');
+                if (display) {
+                    if (field === 'username') {
+                        display.textContent = '@' + input.value;
+                    } else {
+                        display.textContent = input.value;
+                    }
+                }
+            });
+        }
+
+        // Restore original data
+        function restoreOriginalData() {
+            Object.keys(originalData).forEach(key => {
+                const input = document.getElementById(key + 'Input');
+                if (input) {
+                    input.value = originalData[key];
+                }
+            });
+        }
+
+        // Event listeners
+        editBtn.addEventListener('click', () => toggleEditMode(true));
+        
+        saveBtn.addEventListener('click', () => {
+            updateDisplayValues();
+            toggleEditMode(false);
+            // Here you would typically send data to server
+            console.log('Data saved');
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+            restoreOriginalData();
+            toggleEditMode(false);
+        });
+
+        // Toggle switches
+        document.querySelectorAll('.toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+            });
+        });
+
+        // Initialize
+        storeOriginalData();
+    </script>
+</body>
+</html>
